@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="GuideFit Pro — Elite fitness guide & workout tracker" />
+  <title>GuideFit Pro</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💪</text></svg>" />
+</head>
+<body>
+
+<!-- ==================== AUTH VIEW ==================== -->
+<div id="auth-view">
+  <div class="auth-container">
+    <div class="auth-logo">
+      <div class="auth-logo-mark">💪</div>
+      <h1>GuideFit Pro</h1>
+      <p>Your Elite Fitness Companion</p>
+    </div>
+    <div class="auth-card">
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="login">Sign In</button>
+        <button class="auth-tab" data-tab="register">Create Account</button>
+      </div>
+
+      <!-- LOGIN -->
+      <div class="auth-form-panel active" id="login-panel">
+        <form id="login-form" novalidate>
+          <div class="form-group">
+            <label for="login-username">Username</label>
+            <input type="text" id="login-username" placeholder="Enter your username" autocomplete="username" />
+            <span class="field-error" id="login-username-error"></span>
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <div class="input-wrap">
+              <input type="password" id="login-password" placeholder="Enter your password" autocomplete="current-password" />
+              <button type="button" class="pass-toggle" onclick="togglePass('login-password',this)">👁</button>
+            </div>
+            <span class="field-error" id="login-password-error"></span>
+          </div>
+          <button type="submit" id="login-btn" class="btn btn-primary">Sign In</button>
+        </form>
+        <div class="auth-hint">Need Help Accessing your Account?
+  For technical support, feature requests, or inquiries, please contact:
+  <strong>
+    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=amarilajhonkenneth@gmail.com&su=GuideFit%20Pro%20Support"
+       target="_blank"
+       rel="noopener noreferrer"
+       style="color: inherit; text-decoration: underline;">
+      amarilajhonkenneth@gmail.com
+    </a>
+  </strong></div>
+      </div>
+
+      <!-- REGISTER -->
+      <div class="auth-form-panel" id="register-panel">
+        <form id="register-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="reg-firstname">First Name</label>
+              <input type="text" id="reg-firstname" placeholder="Alex" autocomplete="given-name" />
+              <span class="field-error" id="reg-firstname-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="reg-lastname">Last Name</label>
+              <input type="text" id="reg-lastname" placeholder="Johnson" autocomplete="family-name" />
+              <span class="field-error" id="reg-lastname-error"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="reg-username">Username</label>
+            <input type="text" id="reg-username" placeholder="alexj_fit" autocomplete="username" />
+            <span class="field-error" id="reg-username-error"></span>
+          </div>
+          <div class="form-group">
+            <label for="reg-email">Email Address</label>
+            <input type="email" id="reg-email" placeholder="alex@example.com" autocomplete="email" />
+            <span class="field-error" id="reg-email-error"></span>
+          </div>
+          <div class="form-group">
+            <label for="reg-phone">Phone (optional)</label>
+            <input type="tel" id="reg-phone" placeholder="+1 234 567 8900" autocomplete="tel" />
+            <span class="field-error" id="reg-phone-error"></span>
+          </div>
+          <div class="form-group">
+            <label>I am a...</label>
+            <div class="gender-selector">
+              <button type="button" class="gender-btn" data-gender="male" onclick="selectGender('male',this)">
+                <span class="gender-icon">♂</span>
+                <span class="gender-label">Male</span>
+                <span class="gender-sub">Muscle & Strength focused</span>
+              </button>
+              <button type="button" class="gender-btn" data-gender="female" onclick="selectGender('female',this)">
+                <span class="gender-icon">♀</span>
+                <span class="gender-label">Female</span>
+                <span class="gender-sub">Tone & Sculpt focused</span>
+              </button>
+            </div>
+            <input type="hidden" id="reg-gender" value="" />
+            <span class="field-error" id="reg-gender-error"></span>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="reg-password">Password</label>
+              <div class="input-wrap">
+                <input type="password" id="reg-password" placeholder="Min 6 chars" autocomplete="new-password" />
+                <button type="button" class="pass-toggle" onclick="togglePass('reg-password',this)">👁</button>
+              </div>
+              <span class="field-error" id="reg-password-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="reg-confirm">Confirm Password</label>
+              <div class="input-wrap">
+                <input type="password" id="reg-confirm" placeholder="Repeat password" autocomplete="new-password" />
+                <button type="button" class="pass-toggle" onclick="togglePass('reg-confirm',this)">👁</button>
+              </div>
+              <span class="field-error" id="reg-confirm-error"></span>
+            </div>
+          </div>
+          <button type="submit" id="register-btn" class="btn btn-primary">Create Account</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== APP VIEW ==================== -->
+<div id="app-view" class="hidden">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-mark">💪</div>
+      <span class="sidebar-logo-text">GuideFit</span>
+    </div>
+    <nav class="sidebar-nav">
+      <button class="nav-item active" data-view="dashboard"><span class="nav-icon">🏠</span>Dashboard</button>
+      <button class="nav-item" data-view="guides"><span class="nav-icon">📖</span>Guides</button>
+      <button class="nav-item" data-view="history"><span class="nav-icon">📊</span>History</button>
+      <button class="nav-item" data-view="profile"><span class="nav-icon">👤</span>Profile</button>
+    </nav>
+    <div class="sidebar-user">
+      <div class="sidebar-avatar" id="sidebar-avatar">A</div>
+      <div class="sidebar-user-info">
+        <div class="sidebar-user-name" id="sidebar-username">User</div>
+        <div class="sidebar-user-sub">Active Member</div>
+      </div>
+      <button class="logout-btn" title="Logout" onclick="App.logout()">⏻</button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+
+    <!-- DASHBOARD -->
+    <section class="main-section" id="dashboard-section">
+      <div class="dashboard-header">
+        <div id="dashboard-greeting" class="dashboard-greeting">Welcome Back</div>
+        <div class="dashboard-sub">Ready to crush your goals today?</div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-card-icon">💪</div><div class="stat-card-val text-accent" id="stat-workouts">0</div><div class="stat-card-label">Total Workouts</div></div>
+        <div class="stat-card"><div class="stat-card-icon">🔥</div><div class="stat-card-val" style="color:var(--accent-2)" id="stat-streak">0</div><div class="stat-card-label">Day Streak</div></div>
+        <div class="stat-card"><div class="stat-card-icon">📅</div><div class="stat-card-val" style="color:var(--accent-3)" id="stat-week">0</div><div class="stat-card-label">This Week</div></div>
+        <div class="stat-card"><div class="stat-card-icon">⚡</div><div class="stat-card-val" style="color:var(--accent-purple)" id="stat-calories">0</div><div class="stat-card-label">kcal Burned</div></div>
+      </div>
+
+      <!-- Suggestions banner -->
+      <div class="suggestion-card">
+        <h3>💡 Suggested Next Steps</h3>
+        <div class="suggestion-item">Open a Guide → tap "Create My Plan" to set your training duration (days, weeks, months, or years)</div>
+        <div class="suggestion-item">Each exercise has a video tutorial — tap the thumbnail to watch before you train</div>
+        <div class="suggestion-item">After each session, tap "Log This Workout" to track calories and build your streak</div>
+        <div class="suggestion-item">Your account and workout history are saved locally and persist across browser sessions</div>
+      </div>
+
+      <div class="section-hd">
+        <div class="section-title">Training Guides</div>
+        <div class="section-link" onclick="App.showGuidesSection()">View all →</div>
+      </div>
+      <div class="guides-grid" id="guides-grid"></div>
+
+      <div class="section-hd" style="margin-top:32px">
+        <div class="section-title">Recent Activity</div>
+        <div class="section-link" onclick="App.showHistorySection()">Full history →</div>
+      </div>
+      <div id="recent-workouts"><div class="empty-state">No workouts yet. Start your first session! 💪</div></div>
+    </section>
+
+    <!-- GUIDES -->
+    <section class="main-section" id="guides-section">
+      <div class="page-title">Training Guides</div>
+      <div class="page-sub">Choose your program and set a custom duration — days, weeks, months, or years.</div>
+      <div class="guides-grid" id="all-guides-grid"></div>
+    </section>
+
+    <!-- GUIDE DETAIL -->
+    <section class="main-section" id="guide-section">
+      <div id="guide-detail-container"></div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="main-section" id="history-section">
+      <div class="page-title">Workout History</div>
+      <div class="page-sub">Your complete training record.</div>
+      <div id="history-list"></div>
+    </section>
+
+    <!-- PROFILE -->
+    <section class="main-section" id="profile-section">
+      <div class="profile-header">
+        <div class="profile-avatar" id="prof-avatar-letter">A</div>
+        <div class="profile-identity">
+          <div class="profile-name" id="prof-display-name">Athlete</div>
+          <div class="profile-username" id="prof-username-display">@username</div>
+          <div id="prof-gender-badge" class="gender-profile-badge male">♂ Male</div>
+        </div>
+        <div class="profile-quick-stats">
+          <div class="pqs-item"><div class="pqs-val" id="prof-total-workouts">0</div><div class="pqs-label">Workouts</div></div>
+          <div class="pqs-item"><div class="pqs-val" id="prof-streak">0</div><div class="pqs-label">Streak</div></div>
+          <div class="pqs-item"><div class="pqs-val" id="prof-calories">0</div><div class="pqs-label">Cal Burned</div></div>
+        </div>
+      </div>
+      <div class="profile-form-card">
+        <div class="profile-form-title">Personal Information</div>
+        <form id="profile-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="prof-firstname">First Name</label>
+              <input type="text" id="prof-firstname" placeholder="First Name" />
+              <span class="field-error" id="prof-firstname-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="prof-lastname">Last Name</label>
+              <input type="text" id="prof-lastname" placeholder="Last Name" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="prof-email">Email</label>
+              <input type="email" id="prof-email" placeholder="your@email.com" />
+              <span class="field-error" id="prof-email-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="prof-phone">Phone</label>
+              <input type="tel" id="prof-phone" placeholder="+1 234 567 8900" />
+            </div>
+          </div>
+          <div class="form-row-3">
+            <div class="form-group">
+              <label for="prof-age">Age</label>
+              <input type="number" id="prof-age" placeholder="25" min="13" max="100" />
+            </div>
+            <div class="form-group">
+              <label for="prof-weight">Weight (kg)</label>
+              <input type="number" id="prof-weight" placeholder="70" min="30" max="300" />
+            </div>
+            <div class="form-group">
+              <label for="prof-height">Height (cm)</label>
+              <input type="number" id="prof-height" placeholder="175" min="100" max="250" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="prof-goal">Fitness Goal</label>
+            <select id="prof-goal">
+              <option value="">Select your goal</option>
+              <option value="Build Muscle">Build Muscle</option>
+              <option value="Lose Weight">Lose Weight</option>
+              <option value="Improve Endurance">Improve Endurance</option>
+              <option value="Increase Flexibility">Increase Flexibility</option>
+              <option value="Get Fit">Get Fit</option>
+              <option value="Sport Performance">Sport Performance</option>
+              <option value="Stress Relief">Stress Relief</option>
+            </select>
+          </div>
+          <hr />
+          <div style="display:flex;gap:12px;justify-content:flex-end;align-items:center">
+            <button type="button" class="btn btn-danger" onclick="if(confirm('Log out?'))App.logout()">Logout</button>
+            <button type="submit" class="btn btn-primary" style="width:auto;padding:13px 32px">Save Changes</button>
+          </div>
+        </form>
+        <!-- Admin user list (visible to demo user) -->
+        <div id="admin-users"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Mobile Nav -->
+  <nav class="mobile-nav">
+    <button class="mobile-nav-item active" data-view="dashboard" onclick="mobileNav(this,'dashboard')"><span class="nav-icon">🏠</span>Home</button>
+    <button class="mobile-nav-item" data-view="guides" onclick="mobileNav(this,'guides')"><span class="nav-icon">📖</span>Guides</button>
+    <button class="mobile-nav-item" data-view="history" onclick="mobileNav(this,'history')"><span class="nav-icon">📊</span>History</button>
+    <button class="mobile-nav-item" data-view="profile" onclick="mobileNav(this,'profile')"><span class="nav-icon">👤</span>Profile</button>
+  </nav>
+</div>
+
+<!-- ==================== VIDEO MODAL ==================== -->
+<div id="video-modal" class="modal-backdrop">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2 id="video-modal-title">Exercise Tutorial</h2>
+      <button class="modal-close" onclick="Components.closeVideoModal()">✕</button>
+    </div>
+    <div class="video-container">
+      <iframe id="video-frame" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PLAN MODAL ==================== -->
+<div id="plan-modal" class="modal-backdrop">
+  <div class="modal-box modal-sm">
+    <div class="plan-modal-body" id="plan-modal-content">
+      <!-- Filled dynamically -->
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast-container"></div>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/components.js"></script>
+<script src="js/app.js"></script>
+<script>
+  function togglePass(id, btn) {
+    const el = document.getElementById(id);
+    el.type = el.type === 'password' ? 'text' : 'password';
+    btn.textContent = el.type === 'password' ? '👁' : '🙈';
+  }
+  function fillDemo() {
+    document.getElementById('login-username').value = 'demo';
+    document.getElementById('login-password').value = 'demo123';
+    Toast.info('Demo credentials filled — click Sign In!');
+  }
+  function selectGender(gender, btn) {
+    document.querySelectorAll('.gender-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    document.getElementById('reg-gender').value = gender;
+    document.getElementById('reg-gender-error').textContent = '';
+  }
+  function mobileNav(btn, view) {
+    document.querySelectorAll('.mobile-nav-item').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    if (view==='dashboard') App.showDashboard();
+    else if (view==='guides') App.showGuidesSection();
+    else if (view==='history') App.showHistorySection();
+    else if (view==='profile') App.showProfile();
+  }
+  // Close modals with Escape
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { Components.closeVideoModal(); Components.closePlanModal(); }
+  });
+</script>
+</body>
+</html>
