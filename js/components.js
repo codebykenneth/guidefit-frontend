@@ -261,7 +261,8 @@ const Components = {
         App._clearCache();
         Components.closePlanModal();
         Toast.success(`✓ ${val} ${unit} plan created! ${totalDays} days of training ahead. Let's go!`);
-        setTimeout(() => App.openGuide(guideId), 500);
+        // FIXED: Reload page after 1 second to show progress bar
+        setTimeout(() => window.location.reload(), 1000);
       })
       .catch(e => Toast.error('Failed to save plan: ' + e.message));
   },
