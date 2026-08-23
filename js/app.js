@@ -1,4 +1,4 @@
-// GuideFit Pro — App Controller (Online / MySQL version)
+// GuideFit Pro â€” App Controller (Online / MySQL version)
 const App = {
   currentUser: null,
   _statsCache: null,
@@ -39,7 +39,7 @@ const App = {
     document.getElementById('video-modal')?.addEventListener('click', e => { if(e.target===e.currentTarget) Components.closeVideoModal(); });
   },
 
-  // ── Auth ─────────────────────────────────────────────────────────────
+  // â”€â”€ Auth â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   showAuth(tab='login') {
     Utils.hide('#app-view'); Utils.show('#auth-view');
     document.querySelectorAll('.auth-tab').forEach(t => t.classList.toggle('active', t.dataset.tab===tab));
@@ -62,7 +62,7 @@ const App = {
       const user = await API.login(username, password);
       this.currentUser = user;
       this._clearCache();
-      Toast.success(`Welcome back, ${user.firstName||user.username}! 👋`);
+      Toast.success(`Welcome back, ${user.firstName||user.username}! ðŸ‘‹`);
       this.syncSidebarUser();
       this.showDashboard();
     } catch (err) {
@@ -105,7 +105,7 @@ const App = {
       const user = await API.register({ username: f.username, firstName: f.firstName, lastName: f.lastName, email: f.email, phone: f.phone, password: f.password, gender: f.gender });
       this.currentUser = user;
       this._clearCache();
-      Toast.success(`Welcome to GuideFit Pro, ${user.firstName}! 🎉`);
+      Toast.success(`Welcome to GuideFit Pro, ${user.firstName}! ðŸŽ‰`);
       this.syncSidebarUser();
       this.showDashboard();
     } catch (err) {
@@ -125,7 +125,7 @@ const App = {
     setTimeout(() => this.showAuth('login'), 300);
   },
 
-  // ── Cache helpers ─────────────────────────────────────────────────────
+  // â”€â”€ Cache helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   _clearCache() {
     this._statsCache = null; this._workoutsCache = null; this._plansCache = null;
   },
@@ -148,13 +148,13 @@ const App = {
     return this._plansCache;
   },
 
-  // ── Guide filtering by gender ─────────────────────────────────────────
+  // â”€â”€ Guide filtering by gender â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   getGuidesForUser() {
     const gender = this.currentUser?.gender || 'male';
     return GUIDES.filter(g => !g.gender || g.gender === gender || g.gender === 'all');
   },
 
-  // ── Dashboard ─────────────────────────────────────────────────────────
+  // â”€â”€ Dashboard â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   async showDashboard() {
     Utils.hide('#auth-view'); Utils.show('#app-view');
     this.setActiveNav('dashboard');
@@ -172,7 +172,7 @@ const App = {
     try {
       const [stats, workouts] = await Promise.all([this._getStats(), this._getWorkouts()]);
       document.getElementById('stat-workouts').textContent = stats.total;
-      document.getElementById('stat-streak').textContent = stats.streak + ' 🔥';
+      document.getElementById('stat-streak').textContent = stats.streak + ' ðŸ”¥';
       document.getElementById('stat-week').textContent = stats.thisWeek;
       document.getElementById('stat-calories').textContent = stats.totalCalories >= 1000
         ? (stats.totalCalories/1000).toFixed(1)+'k' : stats.totalCalories;
@@ -181,7 +181,7 @@ const App = {
       if (container) {
         container.innerHTML = workouts.length
           ? workouts.slice(0,6).map(w => Components.workoutHistoryRow(w)).join('')
-          : '<div class="empty-state">No workouts yet. Start your first session! 💪</div>';
+          : '<div class="empty-state">No workouts yet. Start your first session! ðŸ’ª</div>';
       }
     } catch (e) {
       console.error('Dashboard load error:', e);
@@ -213,7 +213,7 @@ const App = {
     } catch { document.getElementById('history-list').innerHTML = '<div class="empty-state">Failed to load history.</div>'; }
   },
 
-  // ── Guide Detail ──────────────────────────────────────────────────────
+  // â”€â”€ Guide Detail â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   async openGuide(guideId) {
     const guide = GUIDES.find(g => g.id === guideId);
     if (!guide) return;
@@ -226,7 +226,8 @@ const App = {
 
     try {
       const plans = await this._getPlans();
-      const plan = plans.find(p => p.guideId === guideId) || null;
+      // FIX: backend returns guide_id (snake_case), not guideId â€” check both
+      const plan = plans.find(p => (p.guideId || p.guide_id) === guideId) || null;
       document.getElementById('guide-detail-container').innerHTML =
         Components.guideDetail(guide, this.currentUser?.id, plan);
       setTimeout(() => document.querySelectorAll('.exercise-row').forEach(r => r.classList.add('visible')), 50);
@@ -241,11 +242,11 @@ const App = {
       await API.logWorkout({ guideId, workoutName, calories: cal });
       await API.markDayComplete(guideId);
       this._clearCache(); // force fresh data next load
-      Toast.success(`💪 Day logged! You burned ~${cal} calories. Keep it up!`);
+      Toast.success(`ðŸ’ª Day logged! You burned ~${cal} calories. Keep it up!`);
       // Update stats in header
       const stats = await this._getStats();
       document.getElementById('stat-workouts').textContent = stats.total;
-      document.getElementById('stat-streak').textContent = stats.streak + ' 🔥';
+      document.getElementById('stat-streak').textContent = stats.streak + ' ðŸ”¥';
       document.getElementById('stat-week').textContent = stats.thisWeek;
       document.getElementById('stat-calories').textContent = stats.totalCalories >= 1000
         ? (stats.totalCalories/1000).toFixed(1)+'k' : stats.totalCalories;
@@ -255,7 +256,7 @@ const App = {
     }
   },
 
-  // ── Profile ───────────────────────────────────────────────────────────
+  // â”€â”€ Profile â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   async showProfile() {
     this.setActiveNav('profile');
     const u = this.currentUser;
@@ -268,7 +269,7 @@ const App = {
     document.getElementById('prof-avatar-letter').textContent = (u.firstName||u.username)[0].toUpperCase();
     document.getElementById('prof-display-name').textContent = `${u.firstName||''} ${u.lastName||''}`.trim() || u.username;
     const genderBadge = document.getElementById('prof-gender-badge');
-    if (genderBadge) { genderBadge.textContent = u.gender==='female'?'♀ Female':'♂ Male'; genderBadge.className = 'gender-profile-badge '+(u.gender==='female'?'female':'male'); }
+    if (genderBadge) { genderBadge.textContent = u.gender==='female'?'â™€ Female':'â™‚ Male'; genderBadge.className = 'gender-profile-badge '+(u.gender==='female'?'female':'male'); }
     this.showSection('profile-section');
     try {
       const stats = await this._getStats();
@@ -292,7 +293,7 @@ const App = {
       const updated = await API.updateProfile({ firstName, lastName: document.getElementById('prof-lastname').value.trim(), email, phone: document.getElementById('prof-phone').value.trim(), age: document.getElementById('prof-age').value, weight: document.getElementById('prof-weight').value, height: document.getElementById('prof-height').value, goal: document.getElementById('prof-goal').value });
       this.currentUser = { ...this.currentUser, ...updated };
       this.syncSidebarUser();
-      Toast.success('Profile saved! ✓');
+      Toast.success('Profile saved! âœ“');
     } catch (e) { Toast.error('Save failed: ' + e.message); }
   },
 
